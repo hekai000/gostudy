@@ -1,6 +1,6 @@
 package main
 
-func main() {
+func exp1() {
 	s := "abc"
 	println(&s)
 	s, y := "def", 10
