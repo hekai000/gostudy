@@ -11,4 +11,15 @@ func main() {
 
 		println(&s, z)
 	}
+	a := []int{1, 2, 3}
+	a[1] = 10
+	println(a)
+	b := make([]int, 3)
+	b[1] = 10
+	println(b)
+	c := new([]int)
+
+	*c = make([]int, 3)
+	(*c)[1] = 10
+	println(*c)
 }
