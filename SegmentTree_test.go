@@ -15,7 +15,7 @@ func TestSegmentTree(t *testing.T) {
 		{
 			name:   "Happy Path - Non-empty",
 			input:  []int{1, 3, 5, 7, 9, 11},
-			expect: []int{36, 10, 28, 4, 16, 18, 0},
+			expect: []int{36, 9, 27, 4, 5, 16, 11, 1, 3, 0, 0, 7, 9, 0, 0},
 		},
 		{
 			name:   "Edge Case - Empty Array",
@@ -48,6 +48,92 @@ func TestSegmentTree(t *testing.T) {
 				if i < len(tt.expect) && st.tree[i] != tt.expect[i] {
 					t.Errorf("unexpected tree value at index %d: got %d, want %d", i, st.tree[i], tt.expect[i])
 				}
+			}
+		})
+	}
+}
+
+func TestSegmentTree_Query(t *testing.T) {
+	tests := []struct {
+		name       string
+		nums       []int
+		queryLeft  int
+		queryRight int
+		expected   int
+		oper       func(i, j int) int
+	}{
+		{
+			name:       "Happy Path - Sum",
+			nums:       []int{1, 2, 3, 4, 5},
+			queryLeft:  1,
+			queryRight: 3,
+			expected:   9, // 2 + 3 + 4
+			oper: func(i, j int) int {
+				return i + j
+			},
+		},
+		{
+			name:       "Happy Path - Max",
+			nums:       []int{1, 3, 2, 4, 5},
+			queryLeft:  0,
+			queryRight: 4,
+			expected:   5, // max in full range
+			oper: func(i, j int) int {
+				if i > j {
+					return i
+				}
+				return j
+			},
+		},
+		{
+			name:       "Edge Case - Empty Array",
+			nums:       []int{},
+			queryLeft:  0,
+			queryRight: 0,
+			expected:   0,
+			oper: func(i, j int) int {
+				return i + j
+			},
+		},
+		{
+			name:       "Edge Case - Single Element",
+			nums:       []int{42},
+			queryLeft:  0,
+			queryRight: 0,
+			expected:   42, // only one element in the range
+			oper: func(i, j int) int {
+				return i + j
+			},
+		},
+		{
+			name:       "Edge Case - Negative Numbers",
+			nums:       []int{-1, -2, -3, -4, -5},
+			queryLeft:  1,
+			queryRight: 3,
+			expected:   -9, // -2 + -3 + -4
+			oper: func(i, j int) int {
+				return i + j
+			},
+		},
+		{
+			name:       "Edge Case - Out of Bounds",
+			nums:       []int{1, 2, 3},
+			queryLeft:  -1,
+			queryRight: 3,
+			expected:   0, // should handle out of bounds gracefully
+			oper: func(i, j int) int {
+				return i + j
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var st SegmentTree
+			st.Init(tt.nums, tt.oper)
+			result := st.Query(tt.queryLeft, tt.queryRight)
+			if result != tt.expected {
+				t.Errorf("expected %d, got %d", tt.expected, result)
 			}
 		})
 	}
