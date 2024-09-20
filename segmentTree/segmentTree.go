@@ -1,4 +1,6 @@
-package main
+package segmentTree
+
+import "fmt"
 
 // SegmentTree define
 type SegmentTree struct {
@@ -30,6 +32,14 @@ func (st *SegmentTree) buildSegmentTree(treeIndex, left, right int) {
 	st.buildSegmentTree(leftTreeIndex, left, midTreeIndex)
 	st.buildSegmentTree(rightTreeIndex, midTreeIndex+1, right)
 	st.tree[treeIndex] = st.merge(st.tree[leftTreeIndex], st.tree[rightTreeIndex])
+}
+
+func (st *SegmentTree) PrintSegmentTree() {
+	fmt.Println("Print Segment Tree Start")
+	for i := 0; i < len(st.tree); i++ {
+		fmt.Print(st.tree[i], " ")
+	}
+	fmt.Println("\nPrint Segment Tree End")
 }
 
 func (st *SegmentTree) leftChild(index int) int {

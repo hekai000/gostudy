@@ -1,4 +1,4 @@
-package main
+package segmentTree
 
 import (
 	"testing"
@@ -43,7 +43,7 @@ func TestSegmentTree(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			var st SegmentTree
 			st.Init(tt.input, add)
-
+			st.PrintSegmentTree()
 			for i := range st.tree {
 				if i < len(tt.expect) && st.tree[i] != tt.expect[i] {
 					t.Errorf("unexpected tree value at index %d: got %d, want %d", i, st.tree[i], tt.expect[i])
@@ -221,25 +221,25 @@ func TestUpdateLazy(t *testing.T) {
 
 	// Test case 1: Lazy update over the entire range
 	st.UpdateLazy(0, 4, 10)
-	if result := st.Query(0, 4); result != 65 {
+	if result := st.QueryLazy(0, 4); result != 65 {
 		t.Errorf("Expected 65, got %d", result)
 	}
 
 	// Test case 2: Lazy update on sub-range
 	st.UpdateLazy(1, 3, 5)
-	if result := st.Query(0, 4); result != 80 {
+	if result := st.QueryLazy(0, 4); result != 80 {
 		t.Errorf("Expected 80, got %d", result)
 	}
 
 	// Test case 3: Lazy update on a single element
 	st.UpdateLazy(2, 2, 2)
-	if result := st.Query(0, 4); result != 82 {
+	if result := st.QueryLazy(0, 4); result != 82 {
 		t.Errorf("Expected 82, got %d", result)
 	}
 
 	// Test case 4: UpdateLazy outside the range
 	st.UpdateLazy(5, 6, 3)
-	if result := st.Query(0, 4); result != 82 {
+	if result := st.QueryLazy(0, 4); result != 82 {
 		t.Errorf("Expected 82, got %d", result)
 	}
 
