@@ -29,15 +29,15 @@ func (uf *UnionFindCount) Union(p, q int) {
 	if pRoot == qRoot {
 		return
 	}
-	if pRoot == len(uf.parent)-1 {
-		pRoot, qRoot = qRoot, pRoot
-	} else if qRoot == len(uf.parent)-1 {
+	if uf.count[pRoot] == len(uf.parent)-1 {
+		//pRoot is the root of the tree, no need to merge
+	} else if uf.count[qRoot] == len(uf.parent)-1 {
 		pRoot, qRoot = qRoot, pRoot
 	} else if uf.count[qRoot] > uf.count[pRoot] {
 		pRoot, qRoot = qRoot, pRoot
 	}
 
-	uf.maxUnionCount += max(uf.maxUnionCount, (uf.count[pRoot] + uf.count[qRoot]))
+	uf.maxUnionCount = max(uf.maxUnionCount, (uf.count[pRoot] + uf.count[qRoot]))
 	uf.parent[qRoot] = pRoot
 	uf.count[pRoot] += uf.count[qRoot]
 }
