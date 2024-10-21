@@ -1,2 +1,2 @@
 # gostudy
-go学习笔记
+go leetcode 刷题
