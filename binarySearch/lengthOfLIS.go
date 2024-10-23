@@ -1,4 +1,4 @@
-package leetcode100
+package binarysearch
 
 /*
 考虑一个简单的贪心，如果我们要使上升子序列尽可能的长，则我们需要让序列上升得尽可能慢，

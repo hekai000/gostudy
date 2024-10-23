@@ -1,4 +1,4 @@
-package leetcode100
+package binarysearch
 
 func splitArray(nums []int, k int) int {
 	sum, maxv := 0, 0

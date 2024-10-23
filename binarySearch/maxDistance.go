@@ -1,4 +1,4 @@
-package leetcode100
+package binarysearch
 
 import "sort"
 

@@ -1,4 +1,4 @@
-package leetcode100
+package binarysearch
 
 /*
 预备知识

@@ -1,4 +1,4 @@
-package leetcode100
+package binarysearch
 
 func lengthOfLongestSubstring(s string) int {
 	length := len(s)
