@@ -5,7 +5,6 @@ import (
 )
 
 func TestFindTarget(t *testing.T) {
-	bstMap = make(map[int]int)
 
 	tests := []struct {
 		name     string
@@ -53,7 +52,7 @@ func TestFindTarget(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			bstMap = make(map[int]int)
+
 			result := findTarget(tt.root, tt.k)
 			if result != tt.expected {
 				t.Errorf("expected %v, got %v", tt.expected, result)

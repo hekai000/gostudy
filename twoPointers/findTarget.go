@@ -9,21 +9,23 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-var bstMap = make(map[int]int)
-
 func findTarget(root *TreeNode, k int) bool {
-	if root == nil {
+	bstMap := make(map[int]int)
+	var dfs func(*TreeNode) bool
+	dfs = func(node *TreeNode) bool {
+		if node == nil {
+			return false
+		}
+		if _, ok := bstMap[k-node.Val]; ok {
+			return true
+		} else {
+			bstMap[node.Val] += 1
+		}
+		if dfs(node.Left) || dfs(node.Right) {
+			return true
+		}
 		return false
 	}
-	cur := root
-	if _, ok := bstMap[k-cur.Val]; ok {
-		return true
-	} else {
-		bstMap[cur.Val] += 1
-	}
-	if findTarget(cur.Left, k) || findTarget(cur.Right, k) {
-		return true
-	}
-	return false
+	return dfs(root)
 
 }
