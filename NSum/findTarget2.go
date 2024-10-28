@@ -1,4 +1,4 @@
-package twopointers
+package nsum
 
 func findTarget2(root *TreeNode, k int) bool {
 	left := BSTIteratorFWDConstructor(root, true)

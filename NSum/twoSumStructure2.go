@@ -1,4 +1,4 @@
-package twopointers
+package nsum
 
 type TwoSum2 struct {
 	sums map[int]int

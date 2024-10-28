@@ -1,4 +1,4 @@
-package twopointers
+package nsum
 
 import "testing"
 

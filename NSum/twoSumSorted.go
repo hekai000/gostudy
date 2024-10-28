@@ -1,4 +1,4 @@
-package twopointers
+package nsum
 
 func twoSumSorted(numbers []int, target int) []int {
 	left, right := 0, len(numbers)-1
