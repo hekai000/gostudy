@@ -15,7 +15,7 @@ func lengthOfLongestSubstringKDistinct(s string, k int) int {
 		}
 		res = max(res, index-left+1)
 	}
-	return len(s) - left
+	return res
 }
 
 func max(a, b int) int {
