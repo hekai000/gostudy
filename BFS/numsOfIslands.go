@@ -38,12 +38,14 @@ func bfs(grid [][]byte, row int, col int) {
 	q = append(q, position{row, col})
 	grid[row][col] = '0'
 	for len(q) > 0 {
-
+		cur := q[0]
 		q = q[1:]
+		x := cur.rowIndex
+		y := cur.colIndex
 
 		for i := 0; i < len(move); i++ {
-			newX := row + move[i].leftRight
-			newY := col + move[i].upDown
+			newX := x + move[i].leftRight
+			newY := y + move[i].upDown
 			if (newX >= 0) && (newX < len(grid)) && (newY >= 0) && (newY < len(grid[0])) && (grid[newX][newY] == '1') {
 				grid[newX][newY] = '0'
 				q = append(q, position{newX, newY})
