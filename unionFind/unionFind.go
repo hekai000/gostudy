@@ -13,22 +13,31 @@ func (uf *UnionFind) Init(n int) {
 	for i := range uf.parent {
 		uf.parent[i] = i
 	}
+	for j := range uf.rank {
+		uf.rank[j] = 1
+	}
 }
 
 func (uf *UnionFind) Find(p int) int {
-	root := p
-	//查找根
-	for root != uf.parent[root] {
-		root = uf.parent[root]
-	}
+	// root := p
+	// //查找根
+	// for root != uf.parent[root] {
+	// 	root = uf.parent[root]
+	// }
+	// //完全压缩
+	// for p != uf.parent[p] {
+	// 	temp := uf.parent[p]
+	// 	uf.parent[p] = root
+	// 	p = temp
+	// }
 	//完全压缩
-	for p != uf.parent[p] {
-		temp := uf.parent[p]
-		uf.parent[p] = root
-		p = temp
+	if uf.parent[p] != p {
+		uf.parent[p] = uf.Find(uf.parent[p])
 	}
-	return root
+	return uf.parent[p]
+	// return root
 }
+
 func (uf *UnionFind) Union(p, q int) {
 	pRoot := uf.Find(p)
 	qRoot := uf.Find(q)
@@ -37,11 +46,12 @@ func (uf *UnionFind) Union(p, q int) {
 	}
 	if uf.rank[qRoot] > uf.rank[pRoot] {
 		uf.parent[pRoot] = qRoot
+		uf.rank[qRoot] += uf.rank[pRoot]
+	} else if uf.rank[pRoot] > uf.rank[qRoot] {
+		uf.parent[qRoot] = pRoot
 	} else {
 		uf.parent[qRoot] = pRoot
-		if uf.rank[pRoot] == uf.rank[qRoot] {
-			uf.rank[pRoot]++
-		}
+		uf.rank[pRoot] += 1
 	}
 	uf.count--
 }
